@@ -17,9 +17,6 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -59,27 +56,13 @@ public class NewsFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.activity_menu, menu);
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setHasOptionsMenu(true);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.about){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,7 +72,6 @@ public class NewsFragment extends Fragment {
 
         View view =  inflater.inflate(R.layout.fragment_news, container, false);
 
-        setHasOptionsMenu(true);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView2);
         adapter = new NewsObjectRecyclerViewAdapter();
         recyclerView.setAdapter(adapter);

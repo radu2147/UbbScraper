@@ -1,6 +1,7 @@
 package com.example.ubbscraper;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.work.Constraints;
 import androidx.work.Data;
@@ -70,7 +71,9 @@ public class AddSubjectsActivity extends AppCompatActivity {
         final ActivityAddSubjectsBinding obj = DataBindingUtil.setContentView(this, R.layout.activity_add_subjects);
 
         if(getIntent().hasExtra("editable")){
+            obj.textView.setText(R.string.update_text);
             obj.addButton.setText("Salveaza");
+            obj.messageForUser.setText(R.string.update_operation);
             obj.prof.setText(getIntent().getStringExtra("Profesor"));
             obj.subject.setText(getIntent().getStringExtra("Subject"));
             obj.editTextTextPersonName3.setText(getIntent().getStringExtra("Url"));
@@ -86,7 +89,7 @@ public class AddSubjectsActivity extends AppCompatActivity {
                                 .putString("Url", obj.editTextTextPersonName3.getText().toString())
                                 .putString("Subject", obj.subject.getText().toString())
                                 .putString("Prof name", obj.prof.getText().toString())
-                                .putInt("Color", colors[obj.editTextTextPersonName3.getText().toString().hashCode() % colors.length]);
+                                .putInt("Color", colors[Math.abs(obj.editTextTextPersonName3.getText().toString().hashCode()) % colors.length]);
                         OneTimeWorkRequest.Builder one = new OneTimeWorkRequest.Builder(NetworkWorker.class);
                         if(!obj.editTextTextPersonName3.getText().toString().equals(getIntent().getStringExtra("Url"))) {
                             one.setConstraints(con);
@@ -119,7 +122,7 @@ public class AddSubjectsActivity extends AppCompatActivity {
                                 .putString("Url", obj.editTextTextPersonName3.getText().toString())
                                 .putString("Subject", obj.subject.getText().toString())
                                 .putString("Prof name", obj.prof.getText().toString())
-                                .putInt("Color", colors[obj.editTextTextPersonName3.getText().toString().hashCode() % colors.length])
+                                .putInt("Color", colors[Math.abs(obj.editTextTextPersonName3.getText().toString().hashCode()) % colors.length])
                                 .build();
                         OneTimeWorkRequest.Builder one = new OneTimeWorkRequest.Builder(NetworkAddWokrer.class)
                                 .setInputData(data)
