@@ -11,6 +11,7 @@ import androidx.work.WorkManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,17 +82,21 @@ public class AddSubjectsActivity extends AppCompatActivity {
                     else {
                         Constraints con = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
                                 .build();
-                        Data data = new Data.Builder().putInt("Id", getIntent().getIntExtra("Id", 0))
+                        Data.Builder data = new Data.Builder().putInt("Id", getIntent().getIntExtra("Id", 0))
                                 .putString("Url", obj.editTextTextPersonName3.getText().toString())
                                 .putString("Subject", obj.subject.getText().toString())
                                 .putString("Prof name", obj.prof.getText().toString())
-                                .putInt("Color", colors[(int) (System.currentTimeMillis() % 5)])
-                                .build();
-                        OneTimeWorkRequest.Builder one = new OneTimeWorkRequest.Builder(NetworkWorker.class)
-                                .setInputData(data);
-                        if(!obj.editTextTextPersonName3.getText().toString().equals(getIntent().getStringExtra("Url")))
+                                .putInt("Color", colors[obj.editTextTextPersonName3.getText().toString().hashCode() % colors.length]);
+                        OneTimeWorkRequest.Builder one = new OneTimeWorkRequest.Builder(NetworkWorker.class);
+                        if(!obj.editTextTextPersonName3.getText().toString().equals(getIntent().getStringExtra("Url"))) {
                             one.setConstraints(con);
+                            data.putBoolean("isUrlChanged", true);
+                        }
+                        else{
+                            data.putBoolean("isUrlChanged", false);
+                        }
 
+                        one.setInputData(data.build());
                         WorkManager man = WorkManager.getInstance(getApplicationContext());
                         man.enqueue(one.build());
 
@@ -114,7 +119,7 @@ public class AddSubjectsActivity extends AppCompatActivity {
                                 .putString("Url", obj.editTextTextPersonName3.getText().toString())
                                 .putString("Subject", obj.subject.getText().toString())
                                 .putString("Prof name", obj.prof.getText().toString())
-                                .putInt("Color", colors[(int) (System.currentTimeMillis() % 5)])
+                                .putInt("Color", colors[obj.editTextTextPersonName3.getText().toString().hashCode() % colors.length])
                                 .build();
                         OneTimeWorkRequest.Builder one = new OneTimeWorkRequest.Builder(NetworkAddWokrer.class)
                                 .setInputData(data)

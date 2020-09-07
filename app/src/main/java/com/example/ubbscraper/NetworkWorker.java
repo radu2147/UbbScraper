@@ -30,25 +30,30 @@ public class NetworkWorker extends Worker {
         String prof = getInputData().getString("Prof name");
         int color = getInputData().getInt("Color", R.color.colorPrimary);
 
-        try {
-            ArrayList<String> hash = new ArrayList<>();
-            Document el = Jsoup.connect(url).get();
-            Elements in = el.body().getAllElements();
-            for (Element x : in) {
-                if (x.childrenSize() < 1)
-                    hash.add(x.text());
+        if(getInputData().getBoolean("isUrlChanged", true)) {
+            try {
+                ArrayList<String> hash = new ArrayList<>();
+                Document el = Jsoup.connect(url).get();
+                Elements in = el.body().getAllElements();
+                for (Element x : in) {
+                    if (x.childrenSize() < 1)
+                        hash.add(x.text());
+                }
+                SubjectDatabase.newInstance(getApplicationContext()).getDao().delete(SubjectDatabase.newInstance(getApplicationContext()).getDao().get(id));
+                SubjectDatabase.newInstance(getApplicationContext()).getDao().insert(new Subject(subj, prof, url, hash, color));
+
+
+                return Result.success();
+
+            } catch (Exception e) {
+                return Result.failure();
             }
+        }
+        else{
+            ArrayList<String> aux = SubjectDatabase.newInstance(getApplicationContext()).getDao().get(id).getHtml_texts();
             SubjectDatabase.newInstance(getApplicationContext()).getDao().delete(SubjectDatabase.newInstance(getApplicationContext()).getDao().get(id));
-            SubjectDatabase.newInstance(getApplicationContext()).getDao().insert(new Subject(subj, prof, url, hash, color));
-
-
-
+            SubjectDatabase.newInstance(getApplicationContext()).getDao().insert(new Subject(subj, prof, url, aux, color));
             return Result.success();
-
         }
-        catch(Exception e){
-            return Result.failure();
-        }
-
     }
 }

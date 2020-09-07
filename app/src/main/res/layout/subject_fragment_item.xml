@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/colorPrimaryLight"
     android:layout_height="wrap_content">
@@ -63,7 +62,7 @@
                 android:layout_marginStart="16dp"
                 android:text="Istvan C."
                 android:textColor="@android:color/black"
-                android:textSize="32sp"
+                android:textSize="27sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/divider3"
                 app:layout_constraintTop_toTopOf="parent"

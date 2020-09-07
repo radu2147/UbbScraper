@@ -61,6 +61,7 @@ public class SubjectFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
     }
 
@@ -71,15 +72,11 @@ public class SubjectFragment extends Fragment {
 
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.about){
+            //do something
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -104,7 +101,7 @@ public class SubjectFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_subject, container, false);
 
-        setHasOptionsMenu(true);
+
 
         adapter = new SubjectRecyclerViewAdapter();
         RecyclerView recycle = view.findViewById(R.id.recyclerView);

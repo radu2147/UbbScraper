@@ -5,6 +5,4 @@
         android:id="@+id/about"
         app:showAsAction="never"
         android:title="Despre"/>
-
-
 </menu>

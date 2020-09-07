@@ -3,7 +3,14 @@
     <string name="tab_text_1">Anunturi</string>
     <string name="tab_text_2">Materii</string>
     <string name="add_subject_activity_text">Adauga materii</string>
-    <string name="about_string">Aceasta aplicatie(neoficiala) gestioneaza materiile unui student precum si anunturile care sunt facute pe paginile profesorilor de la ubb. Aplicatia foloseste tehnici de web scraping pentru fiecare materie adaugata</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="about_string">O aplicatie neoficiala care gestioneaza materiile precum si anunturile facute de un prof de la UBB pe pagina sa.</string>
+    <string name="features">-aplicatia permite adaugarea stergerea si modificarea materiilor\n
+        -o materie contine numele profesorului a materiei precum si linkul catre pagina materiei\n
+        -pentru a primi anunturi trebuie facut refresh in "Anunturi"\n
+        -la click pe un anunt aplicatia te va redirectiona catre pagina anuntului\n
+        -iconita din dreapta materiei te va redirectiona catre pagina materiei\n
+        -swipe pentru a sterge o materie sau un anunt\n
+        -modificarea numelui materiei sau a profesorului e permisa offline, dar pentru link este necesara conexiunea la internet</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="feedback">Apliatia a fost dezvoltata de Radu-Andrei Baston. Pentru contact sau feedback</string>
 </resources>

@@ -9,13 +9,13 @@ public class Utils {
     public static String createNewsMessage(ArrayList<String> ex){
         String message = "";
         for(String el: ex){
-            if(message.length() + 2 + el.length() < 40){
+            if(message.length() + 2 + el.length() < 31){
                 message += el;
                 message += ". ";
             }
             else{
                 int contor = 0;
-                while(message.length() < 37){
+                while(message.length() < 28){
                     message += el.charAt(contor);
                     contor ++;
                 }
