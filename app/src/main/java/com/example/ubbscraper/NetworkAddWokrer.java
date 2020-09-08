@@ -1,6 +1,9 @@
 package com.example.ubbscraper;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -43,6 +46,12 @@ public class NetworkAddWokrer extends Worker {
 
         }
         catch(Exception e){
+            new Handler(Looper. getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Conexiune esuata. Linkul poate fi incorect", Toast.LENGTH_SHORT).show();
+                }
+            });
             return Result.failure();
         }
     }
