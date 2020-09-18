@@ -81,11 +81,7 @@ public class NewsFragment extends Fragment {
         lay.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Constraints con = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
-                OneTimeWorkRequest one = new OneTimeWorkRequest.Builder(NewsWorker.class).setConstraints(con).build();
-                WorkManager man = WorkManager.getInstance(Objects.requireNonNull(getContext()));
-                man.enqueue(one);
-                lay.setRefreshing(false);
+                grabNews(lay);
             }
         });
 
@@ -119,5 +115,13 @@ public class NewsFragment extends Fragment {
                 adapter.setData(newsObjects);
             }
         });
+    }
+
+    private void grabNews(final SwipeRefreshLayout lay){
+        Constraints con = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
+        OneTimeWorkRequest one = new OneTimeWorkRequest.Builder(NewsWorker.class).setConstraints(con).build();
+        WorkManager man = WorkManager.getInstance(Objects.requireNonNull(getContext()));
+        man.enqueue(one);
+        lay.setRefreshing(false);
     }
 }

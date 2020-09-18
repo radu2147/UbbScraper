@@ -1,7 +1,9 @@
 package com.example.ubbscraper;
 
 import android.content.Context;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -30,6 +32,7 @@ public class NewsWorker extends Worker {
     @Override
     public Result doWork() {
         List<Subject> all = SubjectDatabase.newInstance(getApplicationContext()).getDao().getAll();
+        boolean messaged = false;
         for(Subject obj: all){
             try {
                 ArrayList<String> hash = new ArrayList<>();
@@ -43,17 +46,24 @@ public class NewsWorker extends Worker {
                 cop = (ArrayList<String>)hash.clone();
                 cop.removeAll(obj.getHtml_texts());
                 if(!cop.isEmpty()){
+                    messaged = true;
                     SubjectDatabase.newInstance(getApplicationContext()).getDao().delete(SubjectDatabase.newInstance(getApplicationContext()).getDao().get(obj.getId()));
                     SubjectDatabase.newInstance(getApplicationContext()).getDao().insert(new Subject(obj.getSubj_name(), obj.getProf_name(), obj.getUrl(), hash, obj.getColor()));
                     NewsDatabase.getInstance(getApplicationContext()).getDao().insert(new NewsObject(obj.getProf_name(), obj.getSubj_name(), Utils.getDateToString(), cop, obj.getColor(), obj.getUrl()));
                 }
             }
             catch(Exception e){
-                Log.d("ERROR", e.toString());
                 return Result.failure();
             }
         }
-
+        if(!messaged){
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Niciun anunt nou", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         return Result.success();
     }
 }

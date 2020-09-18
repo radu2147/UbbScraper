@@ -1,19 +1,21 @@
 <resources>
-    <string name="app_name">UbbScraper</string>
+    <string name="app_name">UBBNews</string>
     <string name="tab_text_1">Anunturi</string>
     <string name="tab_text_2">Materii</string>
     <string name="add_subject_activity_text">Adauga materii</string>
-    <string name="about_string">O aplicatie neoficiala care gestioneaza materiile precum si anunturile facute de un prof de la UBB pe pagina sa.</string>
+    <string name="about_string">O aplicatie neoficiala care gestioneaza materiile si anunturile facute de un profesor de la UBB pe pagina sa.</string>
     <string name="features">-aplicatia permite adaugarea stergerea si modificarea materiilor\n
         -o materie contine numele profesorului a materiei precum si linkul catre pagina materiei\n
         -pentru a primi anunturi trebuie facut refresh in "Anunturi"\n
+        -daca nu exista niciun anunt nou, aplicatia va semnala cu un mesaj acest lucru\n
         -la click pe un anunt aplicatia te va redirectiona catre pagina anuntului\n
         -iconita din dreapta materiei te va redirectiona catre pagina materiei\n
         -swipe pentru a sterge o materie sau un anunt\n
         -modificarea numelui materiei sau a profesorului e permisa offline, dar pentru link este necesara conexiunea la internet</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="feedback">Apliatia a fost dezvoltata de Radu-Andrei Baston.\nPentru contact sau feedback: brir2665@scs.ubbcluj.ro</string>
-    <string name="add_operation">* Pentru a adauga materii noi e necesara conexiunea la internet\n* Daca linkul dat nu este valabil, materia nu va fi adaugata</string>
-    <string name="update_operation">* Numele profului sau a materiei pot fi modificate offline\n* Pentru linkul materiei e necesara conexiune la internet\n</string>
+    <string name="feedback">Aplicatia a fost dezvoltata de Radu-Andrei Baston.\nPentru contact sau feedback: brir2665@scs.ubbcluj.ro</string>
+    <string name="add_operation">* Pentru a adauga materii noi e necesara conexiunea la internet, altfel adaugarea se va face cand revine conexiunea\n* Daca linkul dat nu este valabil, materia nu va fi adaugata</string>
+    <string name="update_operation">* Numele profului sau a materiei pot fi modificate offline\n* Pentru linkul materiei, modificarea se va face cand conexiunea la internet este disponibila</string>
     <string name="update_text">Modifica materiile</string>
+    <string name="credits">Iconita realizata de Freepik pe www.flaticon.com</string>
 </resources>

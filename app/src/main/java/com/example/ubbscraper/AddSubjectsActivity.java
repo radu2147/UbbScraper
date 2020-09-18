@@ -12,7 +12,6 @@ import androidx.work.WorkManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,12 +34,17 @@ public class AddSubjectsActivity extends AppCompatActivity {
     }
 
     private void setColors(){
-        colors = new int[5];
+        colors = new int[10];
         colors[0] = Color.RED;
         colors[1] = R.color.colorPrimary;
         colors[2] = Color.MAGENTA;
         colors[3] = Color.GREEN;
         colors[4] = Color.GRAY;
+        colors[5] = R.color.white_backgorund_color1;
+        colors[6] = R.color.white_backgorund_color2;
+        colors[7] = R.color.white_backgorund_color3;
+        colors[8] = R.color.white_backgorund_color4;
+        colors[9] = R.color.white_backgorund_color5;
     }
 
     @Override

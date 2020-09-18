@@ -4,4 +4,11 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorPrimaryLight">#9e47ff</color>
+    <color name="colorPrimaryLighter">#be9fe1</color>
+
+    <color name="white_backgorund_color1">#1496bb</color>
+    <color name="white_backgorund_color2">#f26d21</color>
+    <color name="white_backgorund_color3">#93a661</color>
+    <color name="white_backgorund_color4">#6699ff</color>
+    <color name="white_backgorund_color5">#28a745</color>
 </resources>
