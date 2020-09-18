@@ -13,7 +13,7 @@
         -swipe pentru a sterge o materie sau un anunt\n
         -modificarea numelui materiei sau a profesorului e permisa offline, dar pentru link este necesara conexiunea la internet</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="feedback">Aplicatia a fost dezvoltata de Radu-Andrei Baston.\nPentru contact sau feedback: brir2665@scs.ubbcluj.ro</string>
+    <string name="feedback">Aplicatia a fost dezvoltata de Radu-Andrei Baston.\nPentru contact sau feedback: radubaston1@gmail.com</string>
     <string name="add_operation">* Pentru a adauga materii noi e necesara conexiunea la internet, altfel adaugarea se va face cand revine conexiunea\n* Daca linkul dat nu este valabil, materia nu va fi adaugata</string>
     <string name="update_operation">* Numele profului sau a materiei pot fi modificate offline\n* Pentru linkul materiei, modificarea se va face cand conexiunea la internet este disponibila</string>
     <string name="update_text">Modifica materiile</string>
