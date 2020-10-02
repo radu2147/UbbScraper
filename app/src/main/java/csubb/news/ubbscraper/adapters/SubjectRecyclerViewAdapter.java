@@ -3,6 +3,7 @@ package csubb.news.ubbscraper.adapters;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import csubb.news.ubbscraper.AddSubjectsActivity;
 import csubb.news.ubbscraper.R;
+import csubb.news.ubbscraper.UpdateSubjectsActivity;
 import csubb.news.ubbscraper.models.Subject;
 
 import java.util.List;
@@ -86,12 +88,12 @@ public class SubjectRecyclerViewAdapter extends RecyclerView.Adapter<SubjectRecy
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent x = new Intent(itemView.getContext(), AddSubjectsActivity.class);
-                    x.putExtra("editable", true);
+                    Intent x = new Intent(itemView.getContext(), UpdateSubjectsActivity.class);
                     x.putExtra("Profesor", professor.getText().toString());
                     x.putExtra("Subject", subject.getText().toString());
                     x.putExtra("Url",list.get(getAdapterPosition()).getUrl());
-                    x.putExtra("Id",list.get(getAdapterPosition()).getId());
+                    x.putExtra("Id", list.get(getAdapterPosition()).getId());
+                    Log.d("ID", String.valueOf(list.get(getAdapterPosition()).getId()));
                     itemView.getContext().startActivity(x);
                 }
             });

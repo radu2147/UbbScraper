@@ -4,14 +4,15 @@
     <string name="tab_text_2">Materii</string>
     <string name="add_subject_activity_text">Adauga materii</string>
     <string name="about_string">O aplicatie neoficiala care gestioneaza materiile si anunturile facute de un profesor de la UBB pe pagina sa.</string>
-    <string name="features">-aplicatia permite adaugarea stergerea si modificarea materiilor\n
-        -o materie contine numele profesorului a materiei precum si linkul catre pagina materiei\n
+    <string name="features">-aplicatia permite adaugarea, stergerea si modificarea materiilor\n
+        -o materie contine numele profesorului(ex: Vancea), a materiei(ex: ASC, FP), precum si linkul catre pagina materiei\n
         -pentru a primi anunturi trebuie facut refresh in "Anunturi"\n
         -daca nu exista niciun anunt nou, aplicatia va semnala cu un mesaj acest lucru\n
-        -la click pe un anunt aplicatia te va redirectiona catre pagina anuntului\n
+        -la click pe un anunt aplicatia te va redirectiona catre pagina anuntului si se va sterge\n
         -iconita din dreapta materiei te va redirectiona catre pagina materiei\n
-        -swipe pentru a sterge o materie sau un anunt\n
-        -modificarea numelui materiei sau a profesorului e permisa offline, dar pentru link este necesara conexiunea la internet</string>
+        -swipe pentru a sterge un anunt\n
+        -pentru a sterge o materie, dai click pe materie si pe iconita din dreapta sus\n
+        -modificarea numelui, materiei sau a profesorului e permisa offline, dar pentru link este necesara conexiunea la internet</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="feedback">Aplicatia a fost dezvoltata de Radu-Andrei Baston.\nPentru contact sau feedback: radubaston1@gmail.com</string>
     <string name="add_operation">* Pentru a adauga materii noi e necesara conexiunea la internet, altfel adaugarea se va face cand revine conexiunea\n* Daca linkul dat nu este valabil, materia nu va fi adaugata</string>

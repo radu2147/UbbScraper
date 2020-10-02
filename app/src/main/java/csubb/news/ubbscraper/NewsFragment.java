@@ -19,6 +19,7 @@ import androidx.work.WorkManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import csubb.news.ubbscraper.adapters.NewsObjectRecyclerViewAdapter;
 import csubb.news.ubbscraper.models.NewsObject;
@@ -37,6 +38,7 @@ import java.util.concurrent.Executors;
 public class NewsFragment extends Fragment {
 
     private NewsObjectRecyclerViewAdapter adapter;
+    private TextView message;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -72,6 +74,7 @@ public class NewsFragment extends Fragment {
 
         View view =  inflater.inflate(R.layout.fragment_news, container, false);
 
+        message = view.findViewById(R.id.no_item_message);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView2);
         adapter = new NewsObjectRecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
@@ -103,7 +106,16 @@ public class NewsFragment extends Fragment {
             }
         }).attachToRecyclerView(recyclerView);
 
+
         retrieveObjects();
+
+        if(adapter.getItemCount() > 0){
+            message.setVisibility(View.INVISIBLE);
+        }
+        else{
+            message.setVisibility(View.VISIBLE);
+        }
+
         return view;
     }
 
@@ -113,6 +125,12 @@ public class NewsFragment extends Fragment {
             @Override
             public void onChanged(List<NewsObject> newsObjects) {
                 adapter.setData(newsObjects);
+                if(adapter.getItemCount() > 0){
+                    message.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    message.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

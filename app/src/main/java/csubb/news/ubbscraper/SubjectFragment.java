@@ -11,10 +11,12 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import csubb.news.ubbscraper.adapters.SubjectRecyclerViewAdapter;
 import csubb.news.ubbscraper.models.Subject;
@@ -34,7 +36,7 @@ public class SubjectFragment extends Fragment {
 
 
     private SubjectRecyclerViewAdapter adapter;
-    private ProgressBar bar;
+    private TextView message;
 
     public SubjectFragment() {
         // Required empty public constructor
@@ -60,10 +62,13 @@ public class SubjectFragment extends Fragment {
         vm.get_live_data(context).observe(getViewLifecycleOwner(), new Observer<List<Subject>>() {
             @Override
             public void onChanged(List<Subject> subjects) {
-
-                bar.setVisibility(View.VISIBLE);
                 adapter.setData(subjects);
-                bar.setVisibility(View.INVISIBLE);
+                if(adapter.getItemCount() > 0){
+                    message.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    message.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -74,35 +79,22 @@ public class SubjectFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_subject, container, false);
 
-
+        message = view.findViewById(R.id.no_subject_message);
 
         adapter = new SubjectRecyclerViewAdapter();
         RecyclerView recycle = view.findViewById(R.id.recyclerView);
         recycle.setAdapter(adapter);
         recycle.setLayoutManager(new LinearLayoutManager(getContext()));
-        bar = view.findViewById(R.id.progressBar2);
-
-
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int direction) {
-                Executors.newSingleThreadExecutor().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        SubjectDatabase.newInstance(getContext()).getDao().delete(adapter.get_all().get(viewHolder.getAdapterPosition()));
-                    }
-                });
-
-            }
-        }).attachToRecyclerView(recycle);
-
 
         retrieveSubjectList(view.getContext());
+
+        if(recycle.getAdapter().getItemCount() > 0){
+            message.setVisibility(View.INVISIBLE);
+        }
+        else{
+            message.setVisibility(View.VISIBLE);
+        }
+
         return view;
     }
 }

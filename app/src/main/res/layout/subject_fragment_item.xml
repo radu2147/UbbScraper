@@ -55,17 +55,21 @@
 
             <TextView
                 android:id="@+id/professor"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
+                android:layout_marginRight="12dp"
+                android:lines="1"
                 android:text="Istvan C."
                 android:textColor="@android:color/black"
                 android:textSize="27sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/web_intent"
+                app:layout_constraintHorizontal_bias="0.059"
                 app:layout_constraintStart_toEndOf="@+id/divider3"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.515" />
+                app:layout_constraintVertical_bias="0.51" />
 
             <Button
                 android:id="@+id/web_intent"

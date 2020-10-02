@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import csubb.news.ubbscraper.R;
 import csubb.news.ubbscraper.Utils;
 import csubb.news.ubbscraper.models.NewsObject;
+import csubb.news.ubbscraper.repository.NewsDatabase;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class NewsObjectRecyclerViewAdapter extends RecyclerView.Adapter<NewsObjectRecyclerViewAdapter.NewsObjectViewHolder> {
 
@@ -35,7 +38,7 @@ public class NewsObjectRecyclerViewAdapter extends RecyclerView.Adapter<NewsObje
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewsObjectViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final NewsObjectViewHolder holder, final int position) {
         holder.professor.setText(listObjects.get(getItemCount() - 1 - position).getProf());
         holder.message.setText(Utils.createNewsMessage(listObjects.get(getItemCount() - 1 - position).getMessage()));
         holder.date.setText(Utils.dateFormat(listObjects.get(getItemCount() - 1 - position).getDate()));
@@ -43,10 +46,16 @@ public class NewsObjectRecyclerViewAdapter extends RecyclerView.Adapter<NewsObje
         holder.card.setCardBackgroundColor(listObjects.get(getItemCount() - 1 - position).getColor());
         holder.element.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent cv = new Intent(Intent.ACTION_VIEW, Uri.parse(listObjects.get(position).getUrl()));
+            public void onClick(final View view) {
+                Intent cv = new Intent(Intent.ACTION_VIEW, Uri.parse(listObjects.get(getItemCount() - 1 - position).getUrl()));
                 if(cv.resolveActivity(view.getContext().getPackageManager()) != null){
                     view.getContext().startActivity(cv);
+                    Executors.newSingleThreadExecutor().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            NewsDatabase.getInstance(view.getContext()).getDao().delete(listObjects.get(getItemCount() - 1 - position));
+                        }
+                    });
                 }
             }
         });
@@ -79,7 +88,6 @@ public class NewsObjectRecyclerViewAdapter extends RecyclerView.Adapter<NewsObje
             date = itemView.findViewById(R.id.date);
             card = itemView.findViewById(R.id.materie);
             element = itemView.findViewById(R.id.element);
-
         }
     }
 }
