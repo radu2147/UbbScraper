@@ -16,8 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import java.net.URL;
-
 import csubb.news.ubbscraper.databinding.ActivityAddSubjectsBinding;
 
 public class AddSubjectsActivity extends AppCompatActivity {
@@ -43,6 +41,34 @@ public class AddSubjectsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item); // important line
     }
 
+    /*
+    Creates a worker that adds a new subject to the database and crawls the internet for the html texts in the webpage
+     */
+    private void createWorker(final ActivityAddSubjectsBinding obj){
+        Constraints con = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+        Data data = new Data.Builder()
+                .putString("Url", obj.editTextTextPersonName3.getText().toString())
+                .putString("Subject", obj.subject.getText().toString())
+                .putString("Prof name", obj.prof.getText().toString())
+                .putInt("Color", Utils.getColors()[Math.abs(obj.editTextTextPersonName3.getText().toString().hashCode()) % Utils.getColors().length])
+                .build();
+        OneTimeWorkRequest.Builder one = new OneTimeWorkRequest.Builder(NetworkAddWokrer.class)
+                .setInputData(data)
+                .setConstraints(con);
+
+        WorkManager man = WorkManager.getInstance(getApplicationContext());
+        man.enqueue(one.build());
+    }
+
+    /*
+    Restarts the MainActivity
+     */
+    private void startMain(){
+        Intent trans = new Intent(AddSubjectsActivity.this, MainActivity.class);
+        startActivity(trans);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,23 +83,8 @@ public class AddSubjectsActivity extends AppCompatActivity {
                     if (Utils.isUrlOk(obj.editTextTextPersonName3.getText().toString()))
                         Toast.makeText(getApplicationContext(), "Url invalid", Toast.LENGTH_SHORT).show();
                     else {
-                        Constraints con = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED)
-                                .build();
-                        Data data = new Data.Builder()
-                                .putString("Url", obj.editTextTextPersonName3.getText().toString())
-                                .putString("Subject", obj.subject.getText().toString())
-                                .putString("Prof name", obj.prof.getText().toString())
-                                .putInt("Color", Utils.getColors()[Math.abs(obj.editTextTextPersonName3.getText().toString().hashCode()) % Utils.getColors().length])
-                                .build();
-                        OneTimeWorkRequest.Builder one = new OneTimeWorkRequest.Builder(NetworkAddWokrer.class)
-                                .setInputData(data)
-                                .setConstraints(con);
-
-                        WorkManager man = WorkManager.getInstance(getApplicationContext());
-                        man.enqueue(one.build());
-
-                        Intent trans = new Intent(AddSubjectsActivity.this, MainActivity.class);
-                        startActivity(trans);
+                        createWorker(obj);
+                        startMain();
                     }
                 }
             });

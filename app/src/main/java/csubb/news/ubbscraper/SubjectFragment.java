@@ -56,21 +56,42 @@ public class SubjectFragment extends Fragment {
         return fragment;
     }
 
-
+    /*
+    Sets the observer onChanged method for the database LiveData field
+     */
     public void retrieveSubjectList(Context context){
         SubjectViewModel vm = new ViewModelProvider(Objects.requireNonNull(getActivity())).get(SubjectViewModel.class);
         vm.get_live_data(context).observe(getViewLifecycleOwner(), new Observer<List<Subject>>() {
             @Override
             public void onChanged(List<Subject> subjects) {
                 adapter.setData(subjects);
-                if(adapter.getItemCount() > 0){
-                    message.setVisibility(View.INVISIBLE);
-                }
-                else{
-                    message.setVisibility(View.VISIBLE);
-                }
+                setMessageVisibility(adapter);
             }
         });
+    }
+
+    /*
+    Sets the recycler view empty case message visible if empty and invisible if there are elements
+     */
+    private void setMessageVisibility(SubjectRecyclerViewAdapter adapter){
+        if(adapter.getItemCount() > 0){
+            message.setVisibility(View.INVISIBLE);
+        }
+        else{
+            message.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /*
+        Sets the recycler view adapter and layout manager
+     */
+    private RecyclerView setRecyclerViewSettings(View view){
+        adapter = new SubjectRecyclerViewAdapter();
+        RecyclerView recycle = view.findViewById(R.id.recyclerView);
+        recycle.setAdapter(adapter);
+        recycle.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        return recycle;
     }
 
     @Override
@@ -80,20 +101,9 @@ public class SubjectFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_subject, container, false);
 
         message = view.findViewById(R.id.no_subject_message);
-
-        adapter = new SubjectRecyclerViewAdapter();
-        RecyclerView recycle = view.findViewById(R.id.recyclerView);
-        recycle.setAdapter(adapter);
-        recycle.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        RecyclerView recycle = setRecyclerViewSettings(view);
         retrieveSubjectList(view.getContext());
-
-        if(recycle.getAdapter().getItemCount() > 0){
-            message.setVisibility(View.INVISIBLE);
-        }
-        else{
-            message.setVisibility(View.VISIBLE);
-        }
+        setMessageVisibility((SubjectRecyclerViewAdapter) recycle.getAdapter());
 
         return view;
     }

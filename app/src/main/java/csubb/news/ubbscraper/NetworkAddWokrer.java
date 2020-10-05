@@ -46,12 +46,7 @@ public class NetworkAddWokrer extends Worker {
 
         }
         catch(Exception e){
-            new Handler(Looper. getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(getApplicationContext(), "Conexiune esuata. Linkul poate fi incorect", Toast.LENGTH_SHORT).show();
-                }
-            });
+            Utils.throwToast(getApplicationContext(), "Conexiune esuata. Linkul poate fi incorect");
             return Result.failure();
         }
     }

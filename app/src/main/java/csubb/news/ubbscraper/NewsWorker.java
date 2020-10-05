@@ -23,33 +23,55 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsWorker extends Worker {
+
+    private boolean messaged;
+
     public NewsWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
+
+    /*
+    Updates the subjectdatabase with the new texts from the web page and insert a news object in the db
+     */
+    private void updateDatabase(Subject obj, ArrayList<String> hash, ArrayList<String> cop){
+        messaged = true;
+        SubjectDatabase.newInstance(getApplicationContext()).getDao().delete(SubjectDatabase.newInstance(getApplicationContext()).getDao().get(obj.getId()));
+        SubjectDatabase.newInstance(getApplicationContext()).getDao().insert(new Subject(obj.getSubj_name(), obj.getProf_name(), obj.getUrl(), hash, obj.getColor()));
+        NewsDatabase.getInstance(getApplicationContext()).getDao().insert(new NewsObject(obj.getProf_name(), obj.getSubj_name(), Utils.getDateToString(), cop, obj.getColor(), obj.getUrl()));
+
+    }
+
+
+    /*
+    Crawls the web page to get the new updated texts
+     */
+    private ArrayList<String> getUpdatedTexts(Elements in){
+        ArrayList<String> hash = new ArrayList<>();
+        for (Element x : in) {
+            // if this happens we know the text will not repeat
+            if (x.childrenSize() < 1)
+                hash.add(x.text());
+        }
+        return hash;
+    }
+
 
 
     @NonNull
     @Override
     public Result doWork() {
         List<Subject> all = SubjectDatabase.newInstance(getApplicationContext()).getDao().getAll();
-        boolean messaged = false;
+        messaged = false;
         for(Subject obj: all){
             try {
-                ArrayList<String> hash = new ArrayList<>();
                 Document el = Jsoup.connect(obj.getUrl()).get();
-                Elements in = el.body().getAllElements();
-                for (Element x : in) {
-                    if (x.childrenSize() < 1)
-                        hash.add(x.text());
-                }
-                ArrayList<String> cop;
-                cop = (ArrayList<String>)hash.clone();
+
+                ArrayList<String> hash = getUpdatedTexts(el.body().getAllElements());
+                ArrayList<String> cop = (ArrayList<String>)hash.clone();
                 cop.removeAll(obj.getHtml_texts());
+
                 if(!cop.isEmpty()){
-                    messaged = true;
-                    SubjectDatabase.newInstance(getApplicationContext()).getDao().delete(SubjectDatabase.newInstance(getApplicationContext()).getDao().get(obj.getId()));
-                    SubjectDatabase.newInstance(getApplicationContext()).getDao().insert(new Subject(obj.getSubj_name(), obj.getProf_name(), obj.getUrl(), hash, obj.getColor()));
-                    NewsDatabase.getInstance(getApplicationContext()).getDao().insert(new NewsObject(obj.getProf_name(), obj.getSubj_name(), Utils.getDateToString(), cop, obj.getColor(), obj.getUrl()));
+                    updateDatabase(obj, hash, cop);
                 }
             }
             catch(Exception e){
@@ -57,12 +79,7 @@ public class NewsWorker extends Worker {
             }
         }
         if(!messaged){
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(getApplicationContext(), "Niciun anunt nou", Toast.LENGTH_SHORT).show();
-                }
-            });
+            Utils.throwToast(getApplicationContext(), "Niciun anunt nou");
         }
         return Result.success();
     }

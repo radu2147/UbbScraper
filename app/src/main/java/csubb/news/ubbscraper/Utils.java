@@ -1,6 +1,10 @@
 package csubb.news.ubbscraper;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.Toast;
 
 import java.net.URL;
 import java.text.DateFormat;
@@ -76,5 +80,14 @@ public class Utils {
         catch (Exception e){
             return true;
         }
+    }
+
+    public static void throwToast(final Context context, final String message){
+        new Handler(Looper. getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
