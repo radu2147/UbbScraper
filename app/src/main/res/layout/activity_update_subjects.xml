@@ -10,7 +10,7 @@
             android:layout_width="match_parent"
             android:paddingBottom="16dp"
             android:layout_height="match_parent"
-            tools:context=".AddSubjectsActivity">
+            tools:context=".activities.AddSubjectsActivity">
 
             <EditText
                 android:id="@+id/subject"

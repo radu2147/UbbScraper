@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import csubb.news.ubbscraper.NewsFragment;
+import csubb.news.ubbscraper.fragments.NewsFragment;
 import csubb.news.ubbscraper.R;
-import csubb.news.ubbscraper.SubjectFragment;
+import csubb.news.ubbscraper.fragments.SubjectFragment;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to

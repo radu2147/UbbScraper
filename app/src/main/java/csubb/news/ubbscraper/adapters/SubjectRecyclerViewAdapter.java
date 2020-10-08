@@ -14,9 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import csubb.news.ubbscraper.AddSubjectsActivity;
 import csubb.news.ubbscraper.R;
-import csubb.news.ubbscraper.UpdateSubjectsActivity;
+import csubb.news.ubbscraper.activities.UpdateSubjectsActivity;
 import csubb.news.ubbscraper.models.Subject;
 
 import java.util.List;

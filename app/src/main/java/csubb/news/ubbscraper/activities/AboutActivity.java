@@ -1,8 +1,10 @@
-package csubb.news.ubbscraper;
+package csubb.news.ubbscraper.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import csubb.news.ubbscraper.R;
 
 public class AboutActivity extends AppCompatActivity {
 

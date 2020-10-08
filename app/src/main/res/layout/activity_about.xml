@@ -14,7 +14,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
     android:paddingBottom="16dp"
-    tools:context=".AboutActivity">
+    tools:context=".activities.AboutActivity">
 
     <TextView
         android:id="@+id/textView2"

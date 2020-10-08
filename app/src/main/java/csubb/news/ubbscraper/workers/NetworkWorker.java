@@ -1,26 +1,17 @@
-package csubb.news.ubbscraper;
+package csubb.news.ubbscraper.workers;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.work.Data;
-import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import csubb.news.ubbscraper.R;
 import csubb.news.ubbscraper.models.Subject;
 import csubb.news.ubbscraper.repository.SubjectDatabase;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import java.util.ArrayList;
 
-public class NetworkWorker extends Worker {
+public class NetworkWorker extends AbstractWorker {
     public NetworkWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
@@ -32,20 +23,6 @@ public class NetworkWorker extends Worker {
         ArrayList<String> aux = SubjectDatabase.newInstance(getApplicationContext()).getDao().get(id).getHtml_texts();
         SubjectDatabase.newInstance(getApplicationContext()).getDao().delete(SubjectDatabase.newInstance(getApplicationContext()).getDao().get(id));
         SubjectDatabase.newInstance(getApplicationContext()).getDao().insert(new Subject(subj, prof, url, aux, color));
-    }
-
-    /*
-    retrieves the new html texts from the new url
-     */
-    private ArrayList<String> retrieveNewTexts(String url) throws Exception{
-        Document el = Jsoup.connect(url).get();
-        Elements in = el.body().getAllElements();
-        ArrayList<String> hash = new ArrayList<>();
-        for (Element x : in) {
-            if (x.childrenSize() < 1)
-                hash.add(x.text());
-        }
-        return hash;
     }
 
     /*
@@ -76,7 +53,7 @@ public class NetworkWorker extends Worker {
                 return Result.success();
 
             } catch (Exception e) {
-                Utils.throwToast(getApplicationContext(), "Conexiune esuata. Linkul poate fi incorect");
+                throwToast(getApplicationContext(), "Conexiune esuata. Linkul poate fi incorect");
                 return Result.failure();
             }
         }

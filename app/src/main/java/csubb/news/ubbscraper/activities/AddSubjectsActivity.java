@@ -1,4 +1,4 @@
-package csubb.news.ubbscraper;
+package csubb.news.ubbscraper.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -9,18 +9,18 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import csubb.news.ubbscraper.R;
+import csubb.news.ubbscraper.utils.Utils;
 import csubb.news.ubbscraper.databinding.ActivityAddSubjectsBinding;
+import csubb.news.ubbscraper.workers.NetworkAddWokrer;
 
 public class AddSubjectsActivity extends AppCompatActivity {
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -13,12 +13,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import csubb.news.ubbscraper.R;
-import csubb.news.ubbscraper.Utils;
+import csubb.news.ubbscraper.utils.Utils;
 import csubb.news.ubbscraper.models.NewsObject;
 import csubb.news.ubbscraper.repository.NewsDatabase;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class NewsObjectRecyclerViewAdapter extends RecyclerView.Adapter<NewsObjectRecyclerViewAdapter.NewsObjectViewHolder> {

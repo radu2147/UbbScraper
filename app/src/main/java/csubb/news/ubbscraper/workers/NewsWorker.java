@@ -1,28 +1,20 @@
-package csubb.news.ubbscraper;
+package csubb.news.ubbscraper.workers;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import csubb.news.ubbscraper.utils.Utils;
 import csubb.news.ubbscraper.models.NewsObject;
 import csubb.news.ubbscraper.models.Subject;
 import csubb.news.ubbscraper.repository.NewsDatabase;
 import csubb.news.ubbscraper.repository.SubjectDatabase;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsWorker extends Worker {
+public class NewsWorker extends AbstractWorker {
 
     private boolean messaged;
 
@@ -41,22 +33,6 @@ public class NewsWorker extends Worker {
 
     }
 
-
-    /*
-    Crawls the web page to get the new updated texts
-     */
-    private ArrayList<String> getUpdatedTexts(Elements in){
-        ArrayList<String> hash = new ArrayList<>();
-        for (Element x : in) {
-            // if this happens we know the text will not repeat
-            if (x.childrenSize() < 1)
-                hash.add(x.text());
-        }
-        return hash;
-    }
-
-
-
     @NonNull
     @Override
     public Result doWork() {
@@ -64,9 +40,7 @@ public class NewsWorker extends Worker {
         messaged = false;
         for(Subject obj: all){
             try {
-                Document el = Jsoup.connect(obj.getUrl()).get();
-
-                ArrayList<String> hash = getUpdatedTexts(el.body().getAllElements());
+                ArrayList<String> hash = retrieveNewTexts(obj.getUrl());
                 ArrayList<String> cop = (ArrayList<String>)hash.clone();
                 cop.removeAll(obj.getHtml_texts());
 
@@ -79,7 +53,7 @@ public class NewsWorker extends Worker {
             }
         }
         if(!messaged){
-            Utils.throwToast(getApplicationContext(), "Niciun anunt nou");
+            throwToast(getApplicationContext(), "Niciun anunt nou");
         }
         return Result.success();
     }

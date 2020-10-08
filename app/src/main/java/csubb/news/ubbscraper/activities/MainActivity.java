@@ -1,4 +1,4 @@
-package csubb.news.ubbscraper;
+package csubb.news.ubbscraper.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import csubb.news.ubbscraper.R;
 import csubb.news.ubbscraper.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {

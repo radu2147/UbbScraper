@@ -1,4 +1,4 @@
-package csubb.news.ubbscraper;
+package csubb.news.ubbscraper.utils;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,6 +11,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import csubb.news.ubbscraper.R;
 
 public class Utils {
 
@@ -80,14 +82,5 @@ public class Utils {
         catch (Exception e){
             return true;
         }
-    }
-
-    public static void throwToast(final Context context, final String message){
-        new Handler(Looper. getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

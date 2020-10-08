@@ -1,4 +1,4 @@
-package csubb.news.ubbscraper;
+package csubb.news.ubbscraper.fragments;
 
 import android.os.Bundle;
 
@@ -21,10 +21,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import csubb.news.ubbscraper.R;
 import csubb.news.ubbscraper.adapters.NewsObjectRecyclerViewAdapter;
 import csubb.news.ubbscraper.models.NewsObject;
 import csubb.news.ubbscraper.repository.NewsDatabase;
 import csubb.news.ubbscraper.repository.NewsObjectViewModel;
+import csubb.news.ubbscraper.workers.NewsWorker;
 
 import java.util.List;
 import java.util.Objects;
